@@ -37,22 +37,8 @@ flux                   Active   6s
 #### 0) flux에서 접속할 수 있는 git repository 생성 및 yaml코드 등록
 - github계정/flux-demo (실습으로 https://github.com/wardviaene/flux-demo 활용)
 
-#### 1) flux에서 git에 접속하기 위한 설정 (여기서는 github계정을 사용)
-##### k8s의 flux가 github에 안전하게 접근할 수 있도록 key를 생성
-- github의 secret key로 해석 가능한 public key를 생성하여
-- github 설정에 추가한다.
-```
-> fluxctl identity --k8s-fwd-ns flux
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDf96Z1Jzk28L9gRd9xSAKAHxgLK1/9qBd......
-```
 
-##### github flux-demo repository의 설정에서 위의 생성된 키값을 등록
-- flux-demo > Settings > Deploy Keys > "Add depoy key" button click >
-- "Key" 필드에 위에서 생성한 key값 입력
-- "Allow write access" 체크박스 클릭 (flux에서 repository 변경 가능)
-- "Add key" 클릭
-
-#### 2) k8s에 flux 실행
+#### 1) k8s에 flux 실행
 ```
 > export GHUSER="freepsw"
 
@@ -71,7 +57,7 @@ clusterrole.rbac.authorization.k8s.io/flux created
 clusterrolebinding.rbac.authorization.k8s.io/flux created
 deployment.apps/flux created
 
-# 위 명령어가 정상적으로 실행되었는지 확인
+# flux가 정상적으로 실행되는지 확인
 > kubectl -n flux rollout status deployment/flux
 deployment "flux" successfully rolled out
 
@@ -81,6 +67,22 @@ flux-7fb567c798-j4zl5        1/1     Running   0          16s
 memcached-86bdf9f56b-2g7pc   1/1     Running   0          60m
 >
 ```
+
+#### 2) flux에서 git에 접속하기 위한 설정 (여기서는 github계정을 사용)
+##### k8s의 flux가 github에 안전하게 접근할 수 있도록 key를 생성
+- github의 secret key로 해석 가능한 public key를 생성하여
+- github 설정에 추가한다.
+```
+> fluxctl identity --k8s-fwd-ns flux
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDf96Z1Jzk28L9gRd9xSAKAHxgLK1/9qBd......
+```
+
+##### github flux-demo repository의 설정에서 위의 생성된 키값을 등록
+- flux-demo > Settings > Deploy Keys > "Add depoy key" button click >
+- "Key" 필드에 위에서 생성한 key값 입력
+- "Allow write access" 체크박스 클릭 (flux에서 repository 변경 가능)
+- "Add key" 클릭
+
 
 ##### flux가 git에 정의된 상태를 k8s에 적용하는 과정 (log 상세)
 ```
