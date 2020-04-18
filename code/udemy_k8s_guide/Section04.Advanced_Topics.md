@@ -1,11 +1,6 @@
 ## Section4. Advanced Topics
 
 
-
-
-
-
-
 ### 4-1. DNS
 - 클러스터의 모든 서비스에는 DNS 네임이 할당된다.
   - 예를 들어 foo라는 네임스페이스에 bar라는 pod가 있는 경우,
@@ -1062,6 +1057,9 @@ node/ip-172-20-36-133.ap-northeast-2.compute.internal untainted
     - Operator는 위와 같은 기능들 다양한 management logic을 통해
     - 관리지/사용자의 직접 구현 없이 사용할 수 있게 해 준다.
 
+- udemy 과정에서는 CRD, Operator에 대한 세부적인 가이드는 없다. 어떻게 활용하는지 보여줄 뿐
+- 이 부분은 별도 학습 필요 
+
 #### Code Examples
 - https://github.com/CrunchyData/postgres-operator 참고
 - PostgreSQL Operator Creates/Configures/Manages PostgreSQL Clusters on Kubernetes
@@ -1070,7 +1068,7 @@ node/ip-172-20-36-133.ap-northeast-2.compute.internal untainted
 > cd postgres-operator
 > ls
 README.md		quickstart-for-gke.sh	set-path.sh		storage.yml
-> cat storage.yml 
+> cat storage.yml
 kind: StorageClass
 apiVersion: storage.k8s.io/v1beta1
 metadata:
